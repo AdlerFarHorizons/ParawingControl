@@ -3,6 +3,8 @@
 //# turns motor counterclockwise, clockwise, clockwise, counterclockwise... after signal recieved on pin 8
 //# outputs state on pins 7, 8, and 9 as HIGH when motor is in the corresponding state
 //# Created May 4th, 2014 by Kit Ng
+//# Lou fine tuned the code
+//# Edit: 7/1/14 for 7/10/14 flight, new motor dimensions and hardware. Code paired. 
 */
 #include <Wire.h>
 #include <Adafruit_MotorShield.h>
@@ -16,6 +18,9 @@ const int sleepTime=30000;
 
 //polulu motor 1209
 const int stepsPerRevolution=200;
+
+//number of turn, currently at 320
+const int stepsToTurn=stepsPerRevolution*1.6;
 
 //Once pin 8 is given a HIGH signal, 
 //it will start. continuous voltage not required
@@ -71,22 +76,22 @@ void loop(){
       }
       
       inform(1);
-      forward(stepsPerRevolution*1.5);
+      forward(stepsToTurn);
       //now at right position
       inform(0); //Holding
       delay(sleepTime);
       inform(2);
-      backward(stepsPerRevolution*1.5);
+      backward(stepsToTurn);
       //now at neutral position
       inform(0); 
       delay(sleepTime);
       inform(2);
-      backward(stepsPerRevolution*1.5);
+      backward(stepsToTurn);
       //now at left position
       inform(0);
       delay(sleepTime);      
       inform(1);
-      forward(stepsPerRevolution*1.5);
+      forward(stepsToTurn);
       //now at neutral position
       inform(0);
       delay(sleepTime);
